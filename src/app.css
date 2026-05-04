@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+	--font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+	--color-amber-500: #eab308;
+	--color-amber-600: #d4a017;
+	--color-amber-700: #b8860b;
+	--color-navy-900: #0f172a;
+	--color-navy-800: #1e293b;
+	--color-navy-700: #334155;
+}
+
+
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: 'Inter', sans-serif;
+	color: #1e293b;
+	background-color: #ffffff;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Loading bar animation */
+.loading-bar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 3px;
+	background: linear-gradient(90deg, #eab308, #d4a017);
+	z-index: 9999;
+	animation: loading 1.5s ease-in-out infinite;
+}
+
+@keyframes loading {
+	0% { width: 0%; left: 0; }
+	50% { width: 60%; left: 20%; }
+	100% { width: 0%; left: 100%; }
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+	from { opacity: 0; transform: translateY(10px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+	animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+	width: 8px;
+}
+::-webkit-scrollbar-track {
+	background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+	background: #cbd5e1;
+	border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: #94a3b8;
+}
