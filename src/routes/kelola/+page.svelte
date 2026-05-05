@@ -90,9 +90,11 @@
 		</a>
 	</div>
 
-	<!-- Table -->
+	<!-- Table & Cards -->
 	<div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden fade-in">
-		<div class="overflow-x-auto">
+		
+		<!-- Desktop Table (hidden on mobile) -->
+		<div class="hidden md:block overflow-x-auto">
 			<table class="w-full text-sm text-left">
 				<thead class="text-xs text-gray-500 bg-gray-50/50 border-b border-gray-100 uppercase">
 					<tr>
@@ -109,7 +111,7 @@
 							<td class="px-6 py-4 text-gray-600">{menu.category?.name || '-'}</td>
 							<td class="px-6 py-4 text-gray-500 font-mono text-xs">{menu.file_id || '-'}</td>
 							<td class="px-6 py-4 text-right">
-								<div class="flex justify-end gap-3 font-medium">
+								<div class="flex justify-end gap-4 font-medium">
 									<button
 										onclick={() => deleteId = menu.id}
 										class="text-red-500 hover:text-red-700 transition-colors"
@@ -140,6 +142,49 @@
 					{/each}
 				</tbody>
 			</table>
+		</div>
+
+		<!-- Mobile Cards (hidden on desktop) -->
+		<div class="md:hidden divide-y divide-gray-100">
+			{#each menus as menu}
+				<div class="p-5 hover:bg-gray-50/50 transition-colors">
+					<div class="mb-3">
+						<h3 class="font-bold text-navy-900 text-[15px] mb-2 leading-tight">{menu.name}</h3>
+						<div class="flex items-center gap-2 text-xs">
+							<span class="inline-flex items-center px-2 py-0.5 rounded bg-amber-100 text-amber-700 font-medium">
+								{menu.category?.name || 'Kategori'}
+							</span>
+							<span class="text-gray-400 font-mono truncate max-w-[120px]" title={menu.file_id}>
+								{menu.file_id || 'No File ID'}
+							</span>
+						</div>
+					</div>
+					<div class="flex items-center gap-2 mt-4 pt-4 border-t border-gray-100 text-sm font-medium">
+						<button
+							onclick={() => deleteId = menu.id}
+							class="text-red-600 flex-1 text-center py-2 rounded-lg bg-red-50 hover:bg-red-100 transition-colors"
+						>
+							Del
+						</button>
+						<a
+							href={`/kelola/edit/${menu.id}`}
+							class="text-blue-600 flex-1 text-center py-2 rounded-lg bg-blue-50 hover:bg-blue-100 transition-colors block"
+						>
+							Edit
+						</a>
+						<button
+							onclick={() => uploadId = menu.id}
+							class="text-emerald-600 flex-1 text-center py-2 rounded-lg bg-emerald-50 hover:bg-emerald-100 transition-colors"
+						>
+							Gambar
+						</button>
+					</div>
+				</div>
+			{:else}
+				<div class="p-8 text-center text-gray-500">
+					Belum ada data resep.
+				</div>
+			{/each}
 		</div>
 		
 		<!-- Pagination Footer -->
