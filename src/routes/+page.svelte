@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { toast } from 'svelte-sonner';
+	import BackgroundGlow from '$lib/components/BackgroundGlow.svelte';
 
 	let { data }: { data: PageData } = $props();
 
@@ -32,6 +33,8 @@
 
 <!-- Hero Section -->
 <section class="relative overflow-hidden bg-gradient-to-br from-amber-50/50 via-white to-orange-50/30">
+	<BackgroundGlow class="right-[-10%] top-[10%]" opacity="opacity-70" />
+	<BackgroundGlow class="left-[-5%] bottom-[-10%]" color="bg-orange-100/50" />
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
 			<div class="fade-in">
@@ -70,7 +73,7 @@
 
 <!-- Category Section -->
 <section class="py-16 md:py-24 bg-white relative">
-	<div class="absolute right-0 top-0 w-96 h-96 bg-amber-50/50 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+	<BackgroundGlow class="right-0 top-0" size="w-96 h-96" blur="blur-3xl" opacity="opacity-50" />
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="text-center mb-16">
 			<h2 class="text-3xl md:text-4xl font-bold text-navy-900">
@@ -100,7 +103,7 @@
 
 <!-- Newsletter / Subscribe Section -->
 <section class="py-16 md:py-24 bg-white relative overflow-hidden">
-	<div class="absolute left-[-10%] top-[20%] w-[500px] h-[500px] bg-amber-50/40 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
+	<BackgroundGlow class="left-[-10%] top-[20%]" size="w-[500px] h-[500px]" color="bg-amber-100/40" />
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-center">
 			<div class="max-w-xl">

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { getImageUrl } from '$lib/api';
+	import BackgroundGlow from '$lib/components/BackgroundGlow.svelte';
 
 	let { data }: { data: PageData } = $props();
 	let menu = $derived(data.menu);
@@ -13,7 +14,7 @@
 
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative overflow-hidden md:overflow-visible">
 	<!-- Background glow -->
-	<div class="absolute right-[-100px] top-[400px] w-[600px] h-[600px] bg-amber-100/70 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
+	<BackgroundGlow class="right-[-100px] top-[400px]" />
 
 	<!-- Hero Section -->
 	<div class="relative w-full h-[350px] md:h-[450px] rounded-[32px] overflow-hidden mb-8 shadow-sm">

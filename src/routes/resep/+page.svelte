@@ -3,6 +3,7 @@
 	import RecipeCard from '$lib/components/RecipeCard.svelte';
 	import { getImageUrl } from '$lib/api';
 	import { page } from '$app/state';
+	import BackgroundGlow from '$lib/components/BackgroundGlow.svelte';
 
 	let { data }: { data: PageData } = $props();
 
@@ -34,7 +35,7 @@
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative">
 	<!-- Background glow -->
-	<div class="absolute right-[-100px] top-[200px] w-[500px] h-[500px] bg-amber-100/60 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
+	<BackgroundGlow class="right-[-100px] top-[200px]" size="w-[500px] h-[500px]" color="bg-amber-100/60" />
 
 	<!-- Trending Banner -->
 	{#if trendingMenu}

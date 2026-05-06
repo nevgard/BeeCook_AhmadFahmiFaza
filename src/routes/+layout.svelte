@@ -38,7 +38,7 @@
 				{#each navLinks as link}
 					<a
 						href={link.href}
-						class="relative text-sm font-medium transition-colors duration-200 py-1 {isActive(link.href) ? 'text-amber-500' : 'text-navy-800 hover:text-amber-600'}"
+						class="relative text-lg font-bold transition-colors duration-200 py-1 {isActive(link.href) ? 'text-amber-500' : 'text-navy-800 hover:text-amber-600'}"
 					>
 						{link.label}
 						{#if isActive(link.href)}

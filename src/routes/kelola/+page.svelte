@@ -4,6 +4,7 @@
 	import type { PageData } from './$types';
 	import { deleteMenu, uploadMenuImage } from '$lib/api';
 	import { toast } from 'svelte-sonner';
+	import BackgroundGlow from '$lib/components/BackgroundGlow.svelte';
 
 	let { data }: { data: PageData } = $props();
 
@@ -79,12 +80,13 @@
 	<title>Kelola Resep - BeeCook</title>
 </svelte:head>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-	<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative">
+	<BackgroundGlow class="right-[-100px] top-[100px]" />
+	<div class="flex flex-col items-start gap-4 mb-8">
 		<h1 class="text-3xl md:text-4xl font-bold text-navy-900">Kelola Resep</h1>
 		<a
 			href="/kelola/baru"
-			class="px-6 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg shadow-md transition-colors"
+			class="px-6 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg shadow-md transition-colors inline-block"
 		>
 			Tambah Resep
 		</a>
@@ -209,6 +211,16 @@
 			</div>
 		{/if}
 	</div>
+
+	<!-- Bottom Action -->
+	<div class="mt-10 flex justify-center">
+		<a
+			href="/kelola/baru"
+			class="px-8 py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl shadow-lg shadow-amber-200 transition-all hover:scale-105"
+		>
+			Tambah Resep Baru
+		</a>
+	</div>
 </div>
 
 <!-- Delete Confirmation Modal -->
@@ -237,20 +249,27 @@
 
 <!-- Upload Image Modal -->
 {#if uploadId}
-	<div class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-navy-900/40 backdrop-blur-sm fade-in">
-		<div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl flex flex-col overflow-hidden">
+	<div class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/30 backdrop-blur-[2px] fade-in">
+		<div class="bg-white rounded-[1.5rem] max-w-sm w-full shadow-2xl flex flex-col overflow-hidden">
 			<!-- Header -->
-			<div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+			<div class="px-6 py-6 flex justify-center items-center relative">
 				<h3 class="text-lg font-bold text-navy-900">Upload Gambar</h3>
-				<button aria-label="Tutup Modal" onclick={closeUploadModal} class="p-2 hover:bg-gray-200 rounded-full transition-colors">
-					<svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+				<button 
+					aria-label="Tutup Modal" 
+					onclick={closeUploadModal} 
+					class="absolute right-6 w-8 h-8 flex items-center justify-center bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors text-gray-400"
+				>
+					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+					</svg>
 				</button>
 			</div>
 			
 			<!-- Body -->
-			<div class="p-6 md:p-8">
+			<div class="px-6 pb-6 space-y-6">
+				<!-- Upload Zone -->
 				<div
-					class="border-2 border-dashed rounded-xl p-8 text-center transition-colors {selectedFile ? 'border-amber-400 bg-amber-50/30' : 'border-gray-300 hover:border-amber-400 hover:bg-gray-50'}"
+					class="border border-dashed border-gray-200 rounded-xl p-8 text-center transition-all hover:border-blue-400 hover:bg-blue-50/10 group cursor-pointer"
 					ondragover={(e) => e.preventDefault()}
 					ondrop={handleDrop}
 					role="button"
@@ -266,41 +285,58 @@
 						onchange={handleFileChange}
 					/>
 					
-					{#if !previewUrl}
-						<div class="flex flex-col items-center gap-3">
-							<svg class="w-12 h-12 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+					<div class="flex flex-col items-center gap-3">
+						<div class="mb-1">
+							<svg class="w-14 h-14 text-blue-500" viewBox="0 0 56 56" fill="none">
+								<path d="M42 16H14C11.7909 16 10 17.7909 10 20V42C10 44.2091 11.7909 46 14 46H42C44.2091 46 46 44.2091 46 42V20C46 17.7909 44.2091 16 42 16Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M18 10H46C48.2091 10 50 11.7909 50 14V38" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/>
+								<path d="M22 28C23.6569 28 25 26.6569 25 25C25 23.3431 23.6569 22 22 22C20.3431 22 19 23.3431 19 25C19 26.6569 20.3431 28 22 28Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M46 36L35.3333 25.3333L10 50.6667" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 							</svg>
-							<p class="text-navy-900 font-medium">Drop your files here or <span class="text-blue-600">browse</span></p>
-							<p class="text-xs text-gray-400">Maximum size: 50MB</p>
 						</div>
-					{:else}
-						<p class="text-sm text-left font-medium text-gray-500 mb-3">Preview</p>
-						<div class="relative w-full h-48 rounded-lg overflow-hidden bg-gray-100 group">
-							<img src={previewUrl} alt="Preview" class="w-full h-full object-cover" />
-							<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-								<span class="text-white text-sm font-medium">Click to change</span>
-							</div>
+						<div>
+							<p class="text-navy-900 text-[15px]">
+								Drop your files here or <span class="text-blue-600 font-semibold">browse</span>
+							</p>
+							<p class="text-xs text-gray-400 mt-1">Maximum size: 50MB</p>
 						</div>
-					{/if}
+					</div>
 				</div>
-			</div>
-			
-			<!-- Footer -->
-			<div class="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50">
-				<button
-					onclick={closeUploadModal}
-					class="px-5 py-2 text-navy-900 bg-white border border-gray-200 hover:bg-gray-50 rounded-lg font-medium transition-colors"
-				>
-					Cancel
-				</button>
-				<button
-					onclick={handleUpload}
-					disabled={!selectedFile}
-					class="px-5 py-2 text-white bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 disabled:cursor-not-allowed rounded-lg font-medium transition-colors"
-				>
-					Upload
-				</button>
+
+				<!-- Preview -->
+				<div class="space-y-2">
+					<p class="text-[13px] font-medium text-gray-400">Preview</p>
+					<div class="w-full h-56 rounded-2xl bg-gray-50/50 border border-gray-100 flex items-center justify-center overflow-hidden">
+						{#if previewUrl}
+							<img src={previewUrl} alt="Preview" class="w-full h-full object-cover" />
+						{:else}
+							<div class="opacity-10">
+								<svg class="w-16 h-16 text-gray-400" viewBox="0 0 56 56" fill="none">
+									<path d="M42 16H14C11.7909 16 10 17.7909 10 20V42C10 44.2091 11.7909 46 14 46H42C44.2091 46 46 44.2091 46 42V20C46 17.7909 44.2091 16 42 16Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M22 28C23.6569 28 25 26.6569 25 25C25 23.3431 23.6569 22 22 22C20.3431 22 19 23.3431 19 25C19 26.6569 20.3431 28 22 28Z" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M46 36L35.3333 25.3333L10 50.6667" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</div>
+						{/if}
+					</div>
+				</div>
+
+				<!-- Footer -->
+				<div class="flex gap-3 pt-2">
+					<button
+						onclick={closeUploadModal}
+						class="flex-1 py-2.5 text-navy-900 bg-white border border-gray-100 hover:bg-gray-50 rounded-xl font-semibold text-sm transition-all"
+					>
+						Cancel
+					</button>
+					<button
+						onclick={handleUpload}
+						disabled={!selectedFile}
+						class="flex-1 py-2.5 text-white bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 disabled:cursor-not-allowed rounded-xl font-semibold text-sm transition-all shadow-md shadow-blue-100"
+					>
+						Upload
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>
